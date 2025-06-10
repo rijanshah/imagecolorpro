@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Professional online tool for color grading and image compression. Apply Lightroom-style presets or create custom looks with advanced controls.">
+    <meta name="keywords" content="color grading, photo editor, Lightroom online, image compressor, photo filters, Rijan Shah">
+    <meta name="author" content="Rijan Shah">
+    <meta property="og:title" content="Image Color PRO | Advanced Online Color Grading Tool">
+    <meta property="og:description" content="Professional color grading and image optimization tool with Lightroom-style presets and custom adjustments.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://imagecolorpro.com">
+    <meta name="robots" content="index, follow">
+    <title>Image Color PRO | Advanced Online Color Grading Tool by Rijan Shah</title>
+    <link rel="canonical" href="https://imagecolorpro.com" />
+    <style>
+        :root {
+            --primary-color: #6e48aa;
+            --secondary-color: #9d50bb;
+            --accent-color: #4776E6;
+            --light-gray: #f5f5f5;
+            --dark-gray: #2c3e50;
+            --medium-gray: #7f8c8d;
+            --preset-1: #3498db;
+            --preset-2: #e74c3c;
+            --preset-3: #2ecc71;
+            --preset-4: #f39c12;
+            --preset-5: #9b59b6;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: var(--dark-gray);
+            background-color: var(--light-gray);
+            padding: 0;
+            margin: 0;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            font-size: 1.8rem;
+        }
+        
+        .byline {
+            font-size: 0.8rem;
+            font-weight: normal;
+            opacity: 0.8;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+        
+        nav ul li a:hover {
+            opacity: 0.8;
+        }
+        
+        .main-content {
+            padding: 2rem 0;
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+            background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjEpIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI3BhdHRlcm4pIi8+PC9zdmc+');
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            color: var(--dark-gray);
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--medium-gray);
+            max-width: 700px;
+            margin: 0 auto 1.5rem;
+        }
+        
+        .tool-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .tool-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .tool-title {
+            font-size: 1.8rem;
+            color: var(--dark-gray);
+            font-weight: 600;
+        }
+        
+        .upload-area {
+            border: 2px dashed var(--medium-gray);
+            border-radius: 8px;
+            padding: 3rem 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .upload-area:hover {
+            border-color: var(--primary-color);
+            background-color: rgba(110, 72, 170, 0.05);
+        }
+        
+        .upload-area.active {
+            border-color: var(--primary-color);
+            background-color: rgba(110, 72, 170, 0.05);
+        }
+        
+        .upload-icon {
+            font-size: 3.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .upload-text {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .upload-subtext {
+            color: var(--medium-gray);
+            font-size: 0.95rem;
+        }
+        
+        #fileInput {
+            display: none;
+        }
+        
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .control-group {
+            flex: 1;
+            min-width: 250px;
+            background: #f9f9f9;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .control-group h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+            color: var(--dark-gray);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .control-group h3 i {
+            font-size: 1.3rem;
+        }
+        
+        .slider-container {
+            margin-bottom: 1.5rem;
+        }
+        
+        .slider-container label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+            color: var(--medium-gray);
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .slider-container input[type="range"] {
+            width: 100%;
+            height: 6px;
+            -webkit-appearance: none;
+            background: #ddd;
+            border-radius: 3px;
+            outline: none;
+        }
+        
+        .slider-container input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .slider-container input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+        }
+        
+        .presets {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .preset {
+            padding: 0.8rem;
+            border-radius: 6px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+            color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .preset:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+        }
+        
+        .preset-1 { background-color: var(--preset-1); }
+        .preset-2 { background-color: var(--preset-2); }
+        .preset-3 { background-color: var(--preset-3); }
+        .preset-4 { background-color: var(--preset-4); }
+        .preset-5 { background-color: var(--preset-5); }
+        .preset-custom { background-color: var(--dark-gray); }
+        
+        .preview-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .image-panel {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .image-panel h3 {
+            margin-bottom: 1rem;
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--dark-gray);
+            padding: 0.5rem;
+            border-bottom: 2px solid var(--light-gray);
+        }
+        
+        .image-wrapper {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 300px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .image-wrapper img {
+            max-width: 100%;
+            max-height: 400px;
+            display: block;
+            object-fit: contain;
+        }
+        
+        .stats {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--medium-gray);
+            background: #f9f9f9;
+            padding: 0.8rem;
+            border-radius: 6px;
+        }
+        
+        .stats span {
+            font-weight: 600;
+            color: var(--dark-gray);
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .btn i {
+            font-size: 1.2rem;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(110, 72, 170, 0.3);
+        }
+        
+        .btn-secondary {
+            background-color: white;
+            color: var(--dark-gray);
+            border: 1px solid #ddd;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #f5f5f5;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
+        
+        .ad-container {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2.5rem 0;
+            text-align: center;
+            min-height: 90px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px dashed #ddd;
+        }
+        
+        .ad-label {
+            font-size: 0.8rem;
+            color: var(--medium-gray);
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+        }
+        
+        footer {
+            background-color: var(--dark-gray);
+            color: white;
+            padding: 3rem 0 2rem;
+            margin-top: 3rem;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 3rem;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            border-radius: 3px;
+        }
+        
+        .footer-section p {
+            color: #bbb;
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-section ul li a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .footer-section ul li a:hover {
+            color: white;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #444;
+            color: #999;
+            font-size: 0.9rem;
+        }
+        
+        /* Loading spinner */
+        .spinner {
+            display: none;
+            width: 50px;
+            height: 50px;
+            margin: 2rem auto;
+            border: 5px solid rgba(110, 72, 170, 0.1);
+            border-radius: 50%;
+            border-top: 5px solid var(--primary-color);
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+            
+            nav ul li {
+                margin: 0;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .preview-container {
+                flex-direction: column;
+            }
+            
+            .image-panel {
+                width: 100%;
+            }
+            
+            .btn {
+                padding: 0.8rem 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .controls {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            
+            .control-group {
+                width: 100%;
+            }
+            
+            .presets {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero {
+                padding: 2rem 0;
+            }
+        }
+        
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: var(--dark-gray);
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 0.5rem;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.8rem;
+            font-weight: normal;
+        }
+        
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <a href="#" class="logo">
+                <i class="fas fa-palette logo-icon"></i>
+                <div>
+                    Image Color PRO
+                    <div class="byline">by Rijan Shah</div>
+                </div>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="#"><i class="fas fa-question-circle"></i> Help</a></li>
+                    <li><a href="#"><i class="fas fa-camera"></i> Examples</a></li>
+                    <li><a href="#"><i class="fas fa-envelope"></i> Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <!-- Top Ad Banner -->
+            <div class="ad-container">
+                <div>
+                    <div class="ad-label">Advertisement</div>
+                    <!-- Replace with your Google AdSense code -->
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID"
+                            crossorigin="anonymous"></script>
+                    <!-- ImageColorPRO_Top_Banner -->
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
+                         data-ad-slot="YOUR_AD_SLOT_ID"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                    <script>
+                         (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            </div>
+
+            <section class="hero">
+                <h1>Professional Color Grading Tool</h1>
+                <p>Transform your images with Lightroom-style presets or create your own custom look with advanced color controls. Optimize and compress for web with one click.</p>
+            </section>
+
+            <section class="tool-container">
+                <div class="tool-header">
+                    <h2 class="tool-title"><i class="fas fa-sliders-h"></i> Image Color PRO Editor</h2>
+                </div>
+
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                    <div class="upload-text">Drag & Drop your image here</div>
+                    <div class="upload-subtext">or click to browse files (JPG, PNG, WEBP up to 10MB)</div>
+                    <input type="file" id="fileInput" accept="image/jpeg, image/png, image/webp">
+                </div>
+
+                <div id="loadingSpinner" class="spinner"></div>
+
+                <div class="controls" id="controls" style="display: none;">
+                    <div class="control-group">
+                        <h3><i class="fas fa-compress-alt"></i> Compression Settings</h3>
+                        <div class="slider-container">
+                            <label for="qualityRange">
+                                <span>Quality</span>
+                                <span id="qualityValue">80</span>%
+                            </label>
+                            <input type="range" id="qualityRange" min="1" max="100" value="80">
+                        </div>
+                        <div class="slider-container">
+                            <label for="widthRange">
+                                <span>Max Width</span>
+                                <span id="widthValue">1000</span>px
+                            </label>
+                            <input type="range" id="widthRange" min="100" max="2000" value="1000" step="50">
+                        </div>
+                        <div class="slider-container">
+                            <label for="formatSelect">Output Format:</label>
+                            <select id="formatSelect" class="btn-secondary" style="width: 100%; padding: 0.5rem;">
+                                <option value="auto">Auto (Same as input)</option>
+                                <option value="jpeg">JPEG</option>
+                                <option value="png">PNG</option>
+                                <option value="webp">WebP</option>
+                            </select>
+                        </div>
+                        <div class="slider-container">
+                            <label>
+                                <input type="checkbox" id="preserveMetadata"> Preserve Metadata
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <h3><i class="fas fa-sliders-h"></i> Color Adjustments</h3>
+                        <div class="slider-container">
+                            <label for="brightnessRange">
+                                <span>Brightness</span>
+                                <span id="brightnessValue">0</span>
+                            </label>
+                            <input type="range" id="brightnessRange" min="-100" max="100" value="0">
+                        </div>
+                        <div class="slider-container">
+                            <label for="contrastRange">
+                                <span>Contrast</span>
+                                <span id="contrastValue">0</span>
+                            </label>
+                            <input type="range" id="contrastRange" min="-100" max="100" value="0">
+                        </div>
+                        <div class="slider-container">
+                            <label for="saturationRange">
+                                <span>Saturation</span>
+                                <span id="saturationValue">0</span>
+                            </label>
+                            <input type="range" id="saturationRange" min="-100" max="100" value="0">
+                        </div>
+                        <div class="slider-container">
+                            <label for="temperatureRange">
+                                <span>Temperature</span>
+                                <span id="temperatureValue">0</span>
+                            </label>
+                            <input type="range" id="temperatureRange" min="-100" max="100" value="0">
+                        </div>
+                        <div class="slider-container">
+                            <label for="tintRange">
+                                <span>Tint</span>
+                                <span id="tintValue">0</span>
+                            </label>
+                            <input type="range" id="tintRange" min="-100" max="100" value="0">
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <h3><i class="fas fa-magic"></i> Presets & Advanced</h3>
+                        <div class="presets">
+                            <div class="preset preset-1" data-preset="vibrant">
+                                <i class="fas fa-sun"></i> Vibrant
+                            </div>
+                            <div class="preset preset-2" data-preset="dramatic">
+                                <i class="fas fa-moon"></i> Dramatic
+                            </div>
+                            <div class="preset preset-3" data-preset="natural">
+                                <i class="fas fa-leaf"></i> Natural
+                            </div>
+                            <div class="preset preset-4" data-preset="warm">
+                                <i class="fas fa-fire"></i> Warm
+                            </div>
+                            <div class="preset preset-5" data-preset="cool">
+                                <i class="fas fa-snowflake"></i> Cool
+                            </div>
+                            <div class="preset preset-custom" id="customPreset">
+                                <i class="fas fa-cog"></i> Custom
+                            </div>
+                        </div>
+                        <div class="slider-container" style="margin-top: 1.5rem;">
+                            <label for="sharpnessRange">
+                                <span>Sharpness</span>
+                                <span id="sharpnessValue">0</span>
+                            </label>
+                            <input type="range" id="sharpnessRange" min="0" max="100" value="0">
+                        </div>
+                        <div class="slider-container">
+                            <label for="vignetteRange">
+                                <span>Vignette</span>
+                                <span id="vignetteValue">0</span>
+                            </label>
+                            <input type="range" id="vignetteRange" min="0" max="100" value="0">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="preview-container" id="previewContainer" style="display: none;">
+                    <div class="image-panel">
+                        <h3>Original Image</h3>
+                        <div class="image-wrapper">
+                            <img id="originalImage" src="" alt="Original image">
+                        </div>
+                        <div class="stats" id="originalStats"></div>
+                    </div>
+                    <div class="image-panel">
+                        <h3>Edited Image</h3>
+                        <div class="image-wrapper">
+                            <img id="compressedImage" src="" alt="Compressed image">
+                        </div>
+                        <div class="stats" id="compressedStats"></div>
+                    </div>
+                </div>
+
+                <div class="action-buttons" id="actionButtons" style="display: none;">
+                    <button id="downloadBtn" class="btn btn-primary">
+                        <i class="fas fa-download"></i> Download Edited Image
+                    </button>
+                    <button id="resetBtn" class="btn btn-secondary">
+                        <i class="fas fa-redo"></i> Reset All Settings
+                    </button>
+                </div>
+            </section>
+
+            <!-- Middle Ad Banner -->
+            <div class="ad-container">
+                <div>
+                    <div class="ad-label">Advertisement</div>
+                    <!-- Replace with your Google AdSense code -->
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID"
+                            crossorigin="anonymous"></script>
+                    <!-- ImageColorPRO_Mid_Banner -->
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
+                         data-ad-slot="YOUR_AD_SLOT_ID"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                    <script>
+                         (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            </div>
+
+            <section class="tool-container">
+                <h2><i class="fas fa-graduation-cap"></i> How to Use Image Color PRO</h2>
+                <div style="margin-top: 1.5rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                    <div>
+                        <h3 style="margin-bottom: 1rem; color: var(--primary-color);">1. Upload Your Image</h3>
+                        <p>Drag and drop your image file into the upload area or click to browse your files. We support JPG, PNG, and WebP formats up to 10MB in size.</p>
+                    </div>
+                    <div>
+                        <h3 style="margin-bottom: 1rem; color: var(--primary-color);">2. Apply Presets or Adjust Manually</h3>
+                        <p>Choose from professional presets or fine-tune your image with our advanced color grading controls. See changes in real-time.</p>
+                    </div>
+                    <div>
+                        <h3 style="margin-bottom: 1rem; color: var(--primary-color);">3. Optimize & Download</h3>
+                        <p>Adjust compression settings to balance quality and file size, then download your perfectly color-graded image with one click.</p>
+                    </div>
+                </div>
+                
+                <h2 style="margin-top: 3rem;"><i class="fas fa-lightbulb"></i> Pro Tips for Best Results</h2>
+                <ul style="margin-top: 1.5rem; padding-left: 1.5rem; columns: 2; column-gap: 2rem;">
+                    <li style="margin-bottom: 1rem; break-inside: avoid;">Start with a high-quality image for best results</li>
+                    <li style="margin-bottom: 1rem; break-inside: avoid;">Use subtle adjustments for natural-looking results</li>
+                    <li style="margin-bottom: 1rem; break-inside: avoid;">Try different presets to discover new styles</li>
+                    <li style="margin-bottom: 1rem; break-inside: avoid;">For web use, quality between 70-85 is usually optimal</li>
+                    <li style="margin-bottom: 1rem; break-inside: avoid;">WebP format offers best compression for modern browsers</li>
+                    <li style="break-inside: avoid;">Use the comparison slider to see before/after differences</li>
+                </ul>
+            </section>
+
+            <!-- Bottom Ad Banner -->
+            <div class="ad-container">
+                <div>
+                    <div class="ad-label">Advertisement</div>
+                    <!-- Replace with your Google AdSense code -->
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID"
+                            crossorigin="anonymous"></script>
+                    <!-- ImageColorPRO_Bottom_Banner -->
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
+                         data-ad-slot="YOUR_AD_SLOT_ID"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                    <script>
+                         (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-section">
+                <h3>Image Color PRO</h3>
+                <p>Professional online tool for color grading and image optimization. Created by Rijan Shah to help photographers and designers enhance their images quickly and easily.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Home</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Privacy Policy</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Terms of Service</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Color Grading Guide</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Image Optimization</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Photography Tips</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Web Design Resources</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container copyright">
+            <p>&copy; <span id="currentYear"></span> Image Color PRO by Rijan Shah. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Set current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // DOM elements
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const loadingSpinner = document.getElementById('loadingSpinner');
+        const controls = document.getElementById('controls');
+        const previewContainer = document.getElementById('previewContainer');
+        const actionButtons = document.getElementById('actionButtons');
+        const originalImage = document.getElementById('originalImage');
+        const compressedImage = document.getElementById('compressedImage');
+        const originalStats = document.getElementById('originalStats');
+        const compressedStats = document.getElementById('compressedStats');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const customPreset = document.getElementById('customPreset');
+
+        // Slider elements
+        const qualityRange = document.getElementById('qualityRange');
+        const qualityValue = document.getElementById('qualityValue');
+        const widthRange = document.getElementById('widthRange');
+        const widthValue = document.getElementById('widthValue');
+        const formatSelect = document.getElementById('formatSelect');
+        const brightnessRange = document.getElementById('brightnessRange');
+        const brightnessValue = document.getElementById('brightnessValue');
+        const contrastRange = document.getElementById('contrastRange');
+        const contrastValue = document.getElementById('contrastValue');
+        const saturationRange = document.getElementById('saturationRange');
+        const saturationValue = document.getElementById('saturationValue');
+        const temperatureRange = document.getElementById('temperatureRange');
+        const temperatureValue = document.getElementById('temperatureValue');
+        const tintRange = document.getElementById('tintRange');
+        const tintValue = document.getElementById('tintValue');
+        const sharpnessRange = document.getElementById('sharpnessRange');
+        const sharpnessValue = document.getElementById('sharpnessValue');
+        const vignetteRange = document.getElementById('vignetteRange');
+        const vignetteValue = document.getElementById('vignetteValue');
+        const preserveMetadata = document.getElementById('preserveMetadata');
+
+        // Preset buttons
+        const presetButtons = document.querySelectorAll('.preset:not(#customPreset)');
+
+        // State variables
+        let originalFile = null;
+        let canvas = document.createElement('canvas');
+        let ctx = canvas.getContext('2d');
+        let isCustomMode = false;
+
+        // Event listeners
+        uploadArea.addEventListener('click', () => fileInput.click());
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('active');
+        });
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('active');
+        });
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('active');
+            
+            if (e.dataTransfer.files.length) {
+                handleFile(e.dataTransfer.files[0]);
+            }
+        });
+        fileInput.addEventListener('change', () => {
+            if (fileInput.files.length) {
+                handleFile(fileInput.files[0]);
+            }
+        });
+
+        // Slider value displays
+        qualityRange.addEventListener('input', () => {
+            qualityValue.textContent = qualityRange.value;
+            if (isCustomMode) processImage();
+        });
+        widthRange.addEventListener('input', () => {
+            widthValue.textContent = widthRange.value;
+            if (isCustomMode) processImage();
+        });
+        brightnessRange.addEventListener('input', () => {
+            brightnessValue.textContent = brightnessRange.value;
+            if (isCustomMode) processImage();
+        });
+        contrastRange.addEventListener('input', () => {
+            contrastValue.textContent = contrastRange.value;
+            if (isCustomMode) processImage();
+        });
+        saturationRange.addEventListener('input', () => {
+            saturationValue.textContent = saturationRange.value;
+            if (isCustomMode) processImage();
+        });
+        temperatureRange.addEventListener('input', () => {
+            temperatureValue.textContent = temperatureRange.value;
+            if (isCustomMode) processImage();
+        });
+        tintRange.addEventListener('input', () => {
+            tintValue.textContent = tintRange.value;
+            if (isCustomMode) processImage();
+        });
+        sharpnessRange.addEventListener('input', () => {
+            sharpnessValue.textContent = sharpnessRange.value;
+            if (isCustomMode) processImage();
+        });
+        vignetteRange.addEventListener('input', () => {
+            vignetteValue.textContent = vignetteRange.value;
+            if (isCustomMode) processImage();
+        });
+        formatSelect.addEventListener('change', () => {
+            if (isCustomMode) processImage();
+        });
+        preserveMetadata.addEventListener('change', () => {
+            if (isCustomMode) processImage();
+        });
+
+        // Preset button events
+        presetButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                isCustomMode = false;
+                applyPreset(button.dataset.preset);
+                customPreset.style.boxShadow = 'none';
+                button.style.boxShadow = '0 0 0 3px rgba(255,255,255,0.5)';
+            });
+        });
+
+        customPreset.addEventListener('click', () => {
+            isCustomMode = true;
+            customPreset.style.boxShadow = '0 0 0 3px rgba(255,255,255,0.5)';
+            presetButtons.forEach(btn => {
+                btn.style.boxShadow = 'none';
+            });
+            processImage();
+        });
+
+        // Button events
+        downloadBtn.addEventListener('click', downloadImage);
+        resetBtn.addEventListener('click', resetAll);
+
+        // Handle file selection
+        function handleFile(file) {
+            if (!file.type.match('image.*')) {
+                alert('Please select an image file (JPEG, PNG, or WebP)');
+                return;
+            }
+            
+            if (file.size > 10 * 1024 * 1024) {
+                alert('File size exceeds 10MB limit');
+                return;
+            }
+            
+            originalFile = file;
+            
+            // Show loading spinner
+            loadingSpinner.style.display = 'block';
+            controls.style.display = 'none';
+            previewContainer.style.display = 'none';
+            actionButtons.style.display = 'none';
+            
+            // Read the file
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                originalImage.onload = function() {
+                    // Hide loading spinner
+                    loadingSpinner.style.display = 'none';
+                    
+                    // Show controls and preview
+                    controls.style.display = 'flex';
+                    previewContainer.style.display = 'flex';
+                    actionButtons.style.display = 'flex';
+                    
+                    // Display original image stats
+                    displayImageStats(originalImage, originalStats, file);
+                    
+                    // Apply default preset
+                    applyPreset('natural');
+                };
+                originalImage.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Apply preset settings
+        function applyPreset(preset) {
+            switch(preset) {
+                case 'vibrant':
+                    brightnessRange.value = 10;
+                    contrastRange.value = 20;
+                    saturationRange.value = 30;
+                    temperatureRange.value = 5;
+                    tintRange.value = 0;
+                    sharpnessRange.value = 15;
+                    vignetteRange.value = 0;
+                    break;
+                case 'dramatic':
+                    brightnessRange.value = -10;
+                    contrastRange.value = 40;
+                    saturationRange.value = -10;
+                    temperatureRange.value = -20;
+                    tintRange.value = 10;
+                    sharpnessRange.value = 25;
+                    vignetteRange.value = 20;
+                    break;
+                case 'natural':
+                    brightnessRange.value = 5;
+                    contrastRange.value = 10;
+                    saturationRange.value = 10;
+                    temperatureRange.value = 0;
+                    tintRange.value = 0;
+                    sharpnessRange.value = 10;
+                    vignetteRange.value = 0;
+                    break;
+                case 'warm':
+                    brightnessRange.value = 5;
+                    contrastRange.value = 15;
+                    saturationRange.value = 15;
+                    temperatureRange.value = 30;
+                    tintRange.value = 5;
+                    sharpnessRange.value = 10;
+                    vignetteRange.value = 0;
+                    break;
+                case 'cool':
+                    brightnessRange.value = 5;
+                    contrastRange.value = 15;
+                    saturationRange.value = 10;
+                    temperatureRange.value = -30;
+                    tintRange.value = 5;
+                    sharpnessRange.value = 10;
+                    vignetteRange.value = 0;
+                    break;
+            }
+            
+            // Update display values
+            brightnessValue.textContent = brightnessRange.value;
+            contrastValue.textContent = contrastRange.value;
+            saturationValue.textContent = saturationRange.value;
+            temperatureValue.textContent = temperatureRange.value;
+            tintValue.textContent = tintRange.value;
+            sharpnessValue.textContent = sharpnessRange.value;
+            vignetteValue.textContent = vignetteRange.value;
+            
+            // Process the image
+            processImage();
+        }
+
+        // Process the image with current settings
+        function processImage() {
+            if (!originalFile) return;
+            
+            const quality = parseInt(qualityRange.value) / 100;
+            const maxWidth = parseInt(widthRange.value);
+            const format = formatSelect.value === 'auto' 
+                ? originalFile.type.split('/')[1] 
+                : formatSelect.value;
+            
+            // Calculate new dimensions while maintaining aspect ratio
+            let width = originalImage.naturalWidth;
+            let height = originalImage.naturalHeight;
+            
+            if (width > maxWidth) {
+                height = (maxWidth / width) * height;
+                width = maxWidth;
+            }
+            
+            // Set canvas dimensions
+            canvas.width = width;
+            canvas.height = height;
+            
+            // Draw original image to canvas
+            ctx.filter = 'none';
+            ctx.drawImage(originalImage, 0, 0, width, height);
+            
+            // Apply color adjustments
+            applyColorAdjustments();
+            
+            // Apply vignette effect
+            applyVignette();
+            
+            // Convert to selected format and quality
+            let mimeType;
+            switch (format) {
+                case 'jpeg':
+                case 'jpg':
+                    mimeType = 'image/jpeg';
+                    break;
+                case 'png':
+                    mimeType = 'image/png';
+                    break;
+                case 'webp':
+                    mimeType = 'image/webp';
+                    break;
+                default:
+                    mimeType = originalFile.type;
+            }
+            
+            // Get the data URL of the compressed image
+            const dataUrl = canvas.toDataURL(mimeType, quality);
+            compressedImage.src = dataUrl;
+            
+            // Display compressed image stats
+            displayCompressedStats(dataUrl);
+        }
+
+        // Apply color adjustments to the canvas
+        function applyColorAdjustments() {
+            const brightness = parseInt(brightnessRange.value);
+            const contrast = parseInt(contrastRange.value);
+            const saturation = parseInt(saturationRange.value);
+            const temperature = parseInt(temperatureRange.value);
+            const tint = parseInt(tintRange.value);
+            const sharpness = parseInt(sharpnessRange.value);
+            
+            // Build filter string
+            let filter = '';
+            
+            // Brightness (range -100 to 100)
+            if (brightness !== 0) {
+                filter += `brightness(${100 + brightness}%) `;
+            }
+            
+            // Contrast (range -100 to 100)
+            if (contrast !== 0) {
+                filter += `contrast(${100 + contrast}%) `;
+            }
+            
+            // Saturation (range -100 to 100)
+            if (saturation !== 0) {
+                filter += `saturate(${100 + saturation}%) `;
+            }
+            
+            // Temperature and Tint (approximation)
+            if (temperature !== 0 || tint !== 0) {
+                // This is a simplified approach to temperature/tint adjustment
+                const tempAdjust = temperature / 100;
+                const tintAdjust = tint / 100;
+                
+                // Calculate RGB multipliers based on temperature and tint
+                let r = 1 + tempAdjust * 0.5 - tintAdjust * 0.2;
+                let g = 1 - Math.abs(tempAdjust) * 0.3;
+                let b = 1 - tempAdjust * 0.5 + tintAdjust * 0.3;
+                
+                // Clamp values
+                r = Math.max(0, Math.min(2, r));
+                g = Math.max(0, Math.min(2, g));
+                b = Math.max(0, Math.min(2, b));
+                
+                filter += `sepia(0) brightness(1) saturate(1) hue-rotate(0deg) opacity(1) contrast(1) blur(0) drop-shadow(0 0 0) grayscale(0) invert(0) `;
+                filter += `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feColorMatrix type="matrix" values="${r} 0 0 0 0 0 ${g} 0 0 0 0 0 ${b} 0 0 0 0 0 1 0"/></filter></svg>#filter') `;
+            }
+            
+            // Sharpness (range 0 to 100)
+            if (sharpness > 0) {
+                // This is a simplified approach - real sharpening would require more complex algorithms
+                filter += `contrast(${100 + sharpness * 0.2}%) `;
+            }
+            
+            // Apply the combined filter
+            ctx.filter = filter.trim() || 'none';
+            
+            // Redraw the image with filters applied
+            ctx.drawImage(canvas, 0, 0, canvas.width, canvas.height);
+        }
+
+        // Apply vignette effect
+        function applyVignette() {
+            const vignette = parseInt(vignetteRange.value);
+            if (vignette <= 0) return;
+            
+            // Create vignette effect
+            const gradient = ctx.createRadialGradient(
+                canvas.width / 2, canvas.height / 2, canvas.height * 0.4,
+                canvas.width / 2, canvas.height / 2, canvas.height * 0.8
+            );
+            
+            const opacity = vignette / 100 * 0.7; // Max 70% opacity
+            gradient.addColorStop(0, `rgba(0, 0, 0, 0)`);
+            gradient.addColorStop(1, `rgba(0, 0, 0, ${opacity})`);
+            
+            ctx.fillStyle = gradient;
+            ctx.globalCompositeOperation = 'multiply';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.globalCompositeOperation = 'source-over';
+        }
+
+        // Display original image statistics
+        function displayImageStats(imgElement, statsElement, file) {
+            const dimensions = `${imgElement.naturalWidth} × ${imgElement.naturalHeight} px`;
+            const size = formatFileSize(file.size);
+            statsElement.innerHTML = `Dimensions: <span>${dimensions}</span><br>Size: <span>${size}</span>`;
+        }
+
+        // Display compressed image statistics
+        function displayCompressedStats(dataUrl) {
+            // Calculate size from data URL
+            const size = dataUrl.length - 'data:image/png;base64,'.length;
+            const sizeInBytes = Math.floor(size * 0.75); // Approximate
+            const dimensions = `${canvas.width} × ${canvas.height} px`;
+            const sizeFormatted = formatFileSize(sizeInBytes);
+            
+            // Calculate savings
+            if (originalFile) {
+                const savings = 100 - (sizeInBytes / originalFile.size * 100);
+                compressedStats.innerHTML = `Dimensions: <span>${dimensions}</span><br>Size: <span>${sizeFormatted}</span><br>Reduction: <span>${savings.toFixed(1)}%</span>`;
+            } else {
+                compressedStats.innerHTML = `Dimensions: <span>${dimensions}</span><br>Size: <span>${sizeFormatted}</span>`;
+            }
+        }
+
+        // Format file size in human-readable format
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        // Download the compressed image
+        function downloadImage() {
+            if (!compressedImage.src) return;
+            
+            const format = formatSelect.value === 'auto' 
+                ? originalFile.type.split('/')[1] 
+                : formatSelect.value;
+            
+            const link = document.createElement('a');
+            link.download = `image-color-pro.${format}`;
+            link.href = compressedImage.src;
+            link.click();
+        }
+
+        // Reset all settings to default
+        function resetAll() {
+            qualityRange.value = 80;
+            qualityValue.textContent = '80';
+            widthRange.value = 1000;
+            widthValue.textContent = '1000';
+            formatSelect.value = 'auto';
+            brightnessRange.value = 0;
+            brightnessValue.textContent = '0';
+            contrastRange.value = 0;
+            contrastValue.textContent = '0';
+            saturationRange.value = 0;
+            saturationValue.textContent = '0';
+            temperatureRange.value = 0;
+            temperatureValue.textContent = '0';
+            tintRange.value = 0;
+            tintValue.textContent = '0';
+            sharpnessRange.value = 0;
+            sharpnessValue.textContent = '0';
+            vignetteRange.value = 0;
+            vignetteValue.textContent = '0';
+            preserveMetadata.checked = false;
+            
+            // Apply natural preset and enter custom mode
+            applyPreset('natural');
+            isCustomMode = true;
+            customPreset.style.boxShadow = '0 0 0 3px rgba(255,255,255,0.5)';
+            presetButtons.forEach(btn => {
+                btn.style.boxShadow = 'none';
+            });
+        }
+    </script>
+</body>
+</html>
